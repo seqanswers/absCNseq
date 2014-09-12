@@ -1,0 +1,5 @@
+compute.absCN           Convert copy ratios into abosolute copy numbers
+                        when given the purity and ploidy estimates
+plot.absCN              plot estimated integer copy numbers from
+                        absCNseq for each chromosome.
+run.absCNSeq            main function to run absCNseq

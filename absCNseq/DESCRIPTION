@@ -1,0 +1,12 @@
+Package: absCNseq
+Type: Package
+Title: Tumor Purity and Ploidy Estimation
+Version: 1.0
+Date: 2013-10-29
+Author: Lei Bao
+Maintainer: Lei Bao <lebao@ucsd.edu>
+Depends: R (>= 2.13.0)
+Description: A method to estimate tumor purity, ploidy and absolute copy numbers from next generation sequencing data.
+License: GPL-2
+LazyLoad: yes
+Built: R 3.0.1; ; 2013-10-30 21:22:56 UTC; unix

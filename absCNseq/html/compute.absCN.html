@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Convert copy ratios into abosolute copy numbers when given...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for compute.absCN {absCNseq}"><tr><td>compute.absCN {absCNseq}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>
+
+Convert copy ratios into abosolute copy numbers when given the purity and ploidy estimates
+</h2>
+
+<h3>Description</h3>
+
+
+<p>This function converts copy ratios into abosolute copy numbers when the tumor purity and ploidy are provided by the user. 
+The tumor purity and ploidy parameter should be taken from the result after running the &quot;run.absCNSeq&quot; function. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+compute.absCN(seg.data, alpha.opt, tau.opt, qmax = 7)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>seg.data</code></td>
+<td>
+
+
+<p>a data frame with five columns: &quot;chrom&quot;, &quot;loc.start&quot;, &quot;loc.end&quot;, &quot;eff.seg.len&quot;, &quot;normalized.ratio&quot;.
+</p>
+</td></tr>
+<tr valign="top"><td><code>alpha.opt</code></td>
+<td>
+
+
+<p>tumor purity estimate
+</p>
+</td></tr>
+<tr valign="top"><td><code>tau.opt</code></td>
+<td>
+
+
+<p>tumor ploidy estimate
+</p>
+</td></tr>
+<tr valign="top"><td><code>qmax</code></td>
+<td>
+
+
+<p>maximum allowed absolute copy number for any segments
+</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+
+
+
+
+
+<p>The input data frame is augmented with two additional columns: rhat (expected copy ratio) and CN (absolute copy number)
+</p>
+
+
+<h3>Author(s)</h3>
+
+
+<p>Lei Bao
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+
+
+
+
+
+
+library(absCNseq)
+my.res.list &lt;- run.absCNSeq("example.cn.txt", "example.snv.txt", "myResult", "Sample1", seq.type="WES", min.seg.len=200)
+seg.CN &lt;- compute.absCN(my.res.list$seg.dat, my.res.list$searchRes[i,"alpha"], my.res.list$searchRes[i,"tau"])  # the i-th solution
+
+
+</pre>
+
+<hr><div align="center">[Package <em>absCNseq</em> version 1.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

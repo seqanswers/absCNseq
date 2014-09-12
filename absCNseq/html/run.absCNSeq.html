@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: main function to run absCNseq</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for run.absCNSeq {absCNseq}"><tr><td>run.absCNSeq {absCNseq}</td><td align="right">R Documentation</td></tr></table>
+
+<h2>
+
+main function to run absCNseq 
+</h2>
+
+<h3>Description</h3>
+
+
+<p>This wrapper function accepts data files and user specified parameters and runs the absCNseq algorithm. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+run.absCNSeq(seg.fn, snv.fn = NULL, res.dir, smp.name, seq.type = c("WES", "WGS"), alpha.min = 0.2, alpha.max = 1, tau.min = 1.5, tau.max = 5, min.freq = 0, min.seg.len = 0, qmax = 7, lamda = 0.5, verbose = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>seg.fn</code></td>
+<td>
+
+
+<p>The name of the file containing the segmentation data. An example file called &quot;example.cn.txt&quot; can be found under the &quot;example&quot; folder within the tarball.   
+</p>
+</td></tr>
+<tr valign="top"><td><code>snv.fn</code></td>
+<td>
+
+
+<p>The name of the file containing a set of somatic single nucleotide variants (SNVs). An example file called &quot;example.snv.txt&quot; can be found under the &quot;example&quot; folder within the tarball.   
+</p>
+</td></tr>
+<tr valign="top"><td><code>res.dir</code></td>
+<td>
+
+
+<p>The output directory 
+</p>
+</td></tr>
+<tr valign="top"><td><code>smp.name</code></td>
+<td>
+
+
+<p>Sample name
+</p>
+</td></tr>
+<tr valign="top"><td><code>seq.type</code></td>
+<td>
+
+
+<p>Either &quot;WES&quot; (whole exome sequencing) or &quot;WGS&quot; (whole genome sequencing)
+</p>
+</td></tr>
+<tr valign="top"><td><code>alpha.min</code></td>
+<td>
+
+
+<p>The minimum allowed value for tumor purity. Default is 0.20. If you do have the pathologist estimate, set it as the lower bound of the pathologist estimate is usually preferred. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>alpha.max</code></td>
+<td>
+
+
+<p>The maximum allowed value for tumor purity. Default is 1.0. If you do have the pathologist estimate, set it as the upper bound of the pathologist estimate is usually preferred. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>tau.min</code></td>
+<td>
+
+
+<p>The minimum allowed value for tumor ploidy
+</p>
+</td></tr>
+<tr valign="top"><td><code>tau.max</code></td>
+<td>
+
+
+<p>The maximum allowed value for tumor ploidy
+</p>
+</td></tr>
+<tr valign="top"><td><code>min.sol.freq</code></td>
+<td>
+
+
+<p>A solution should appear at least this many times to be kept. Singleton solutions are usually not trustable. By default (min.sol.freq=0), the program will only retain solutions that cover at least 1 percent of the search space.
+</p>
+</td></tr>
+<tr valign="top"><td><code>min.seg.len</code></td>
+<td>
+
+
+<p>The minimum length of a segment to be included in computation. The default value is 200 bp for WES  and 3000 bp for WGS. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>qmax</code></td>
+<td>
+
+
+<p>Maximum allowed absolute copy number for any segments.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lamda</code></td>
+<td>
+
+
+<p>The relative weight of the segment copy ratio data over the SNV data. Must be a value in(0.0,1.0]. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+
+<p>Please refer to the &quot;example&quot; folder to see the format of the input segmentation file or SNV file.
+</p>
+
+
+<h3>Value</h3>
+
+
+<p>a list is returned
+
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>searchRes </code></td>
+<td>
+<p>a data frame giving the solution set (purity and ploidy pairs) ranked by their fitting errors </p>
+</td></tr>
+<tr valign="top"><td><code>absCN </code></td>
+<td>
+<p>a data frame giving the absolute copy number estimates of tumor cells for the top first solution (purity and ploidy pair)</p>
+</td></tr>
+<tr valign="top"><td><code>absSNV </code></td>
+<td>
+<p>a data frame giving the absolute multiplicity estimates of SNVs for the top first solution (purity and ploidy pair) </p>
+</td></tr>
+<tr valign="top"><td><code>orig.seg.dat </code></td>
+<td>
+<p>original copy ratio data read from the input segmentation file </p>
+</td></tr> 
+<tr valign="top"><td><code>seg.dat </code></td>
+<td>
+<p>filtered copy ratio data </p>
+</td></tr> 
+<tr valign="top"><td><code>orig.snv.dat </code></td>
+<td>
+<p>original SNV data read from the input SNV file </p>
+</td></tr>  
+<tr valign="top"><td><code>snv.dat </code></td>
+<td>
+<p>filtered SNV data </p>
+</td></tr>
+</table>
+
+
+
+<h3>Author(s)</h3>
+
+
+<p>Lei Bao
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+library(absCNseq)
+my.res.list &lt;- run.absCNSeq("example.cn.txt", "example.snv.txt", "myResult", "Sample1", seq.type="WES", min.seg.len=200)
+seg.CN &lt;- compute.absCN(my.res.list$seg.dat, my.res.list$searchRes[i,"alpha"], my.res.list$searchRes[i,"tau"])  # the i-th solution
+plot.absCN(seg.CN, chromnum=1)  # plot chromosome 1
+
+
+
+
+
+</pre>
+
+<hr><div align="center">[Package <em>absCNseq</em> version 1.0 <a href="00Index.html">Index</a>]</div>
+</body></html>
